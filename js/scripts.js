@@ -20,6 +20,7 @@ Space.prototype.getMark = function() {
 Space.prototype.addMark = function(newMark) {
   if (this.mark === "") {
     this.mark = newMark;
+    return newMark;
   } else {
     return("This space is already marked.")
   }
@@ -75,7 +76,7 @@ function Game() {
 }
 
 Game.prototype.markSpace = function(spaceNumber) {
-  this.board.spaces[spaceNumber].addMark(this.activePlayer.mark);
+  return this.board.spaces[spaceNumber].addMark(this.activePlayer.mark);
 }
 
 Game.prototype.endTurn = function() {
@@ -99,17 +100,39 @@ Game.prototype.isOver = function() {
 }
 
 // UI Logic
+function updateSpace(space, mark){
+  $("#" + space).text(mark);
+}
+
+function printEnd(result) {
+  if (result !== "full") {
+    $("#result").text(result + " is the Winner!");
+  } else {
+    $("#result").text("It's a tie!");
+  }
+}
+
+function updateTurn(player) {
+  $("#active-player").text(player);
+}
+
 $(document).ready(function() {
-  var player1 = new Player("X");
-  console.log(player1);
-  console.log(player1.mark);
-
-  var space1 = new Space(1,1);
-  console.log(space1);
-
-  var board1 = new Board();
-  console.log(board1);
 
   var newGame = new Game();
-  console.log(newGame);
+  updateTurn(newGame.activePlayer.mark);
+
+  $(".space").click(function(){
+    var mark = newGame.markSpace(parseInt($(this).attr("id")));
+    if (mark !== "This space is already marked.") {
+      updateSpace(parseInt($(this).attr("id")), newGame.activePlayer.mark);
+      var turnEnd = newGame.endTurn();
+      if (turnEnd) {
+        printEnd(turnEnd);
+      } else {
+        updateTurn(newGame.activePlayer.mark);
+      }
+    } else {
+      console.log("Already Marked");
+    }
+  });
 });
