@@ -9,9 +9,10 @@ body {
 }
 
 .contents {
+  width: 1170px;
   height: 85vh;
   background-image: url("bg.jpeg");
-  background-size: 100vw auto;
+  background-size: 100% auto;
   background-repeat: no-repeat;
 }
 
