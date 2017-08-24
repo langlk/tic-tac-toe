@@ -106,7 +106,7 @@ function updateSpace(space, mark){
 
 function printEnd(result) {
   if (result !== "full") {
-    $("#result").text(result + " is the Winner!");
+    $("#result").text(result + " is the winner!");
   } else {
     $("#result").text("It's a tie!");
   }

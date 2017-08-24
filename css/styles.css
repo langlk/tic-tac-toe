@@ -1,10 +1,14 @@
+body {
+  font-family: 'Rock Salt', cursive;
+}
+
 .btn{
-height: 100px;
-width: 100px;
-border: 5px solid black;
-border-radius: 0px;
-margin: 0px;
-font-size: 40px;
+  height: 100px;
+  width: 100px;
+  border: 5px solid black;
+  border-radius: 0px;
+  margin: 0px;
+  font-size: 40px;
 }
 
 h1 {
@@ -13,16 +17,17 @@ h1 {
 
 h3 {
   text-align: center;
-  font-size: 80px;
+  font-size: 60px;
   width: 330px;
   margin-left: auto;
   margin-right: auto;
+  margin-bottom: 17px;
 }
 
 h4 {
   text-align: center;
   font-size: 40px;
-  width: 330px;
+  width: 400px;
   margin-left: auto;
   margin-right: auto;
 }
