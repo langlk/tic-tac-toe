@@ -35,12 +35,13 @@ function Board() {
 }
 
  Board.prototype.boardFull = function(){
+   var isFull = true;
    this.spaces.forEach(function(spaceFull){
      if(spaceFull.getMark() === "") {
-       return false;
+       isFull = false;
      }
    });
-   return true;
+   return isFull;
  }
 
 Board.prototype.threeInRow = function() {
@@ -77,8 +78,7 @@ $(document).ready(function() {
 
   var board1 = new Board();
   console.log(board1);
-
   console.log(board1.threeInRow());
-
+  console.log(board1.boardFull());
 
 });
