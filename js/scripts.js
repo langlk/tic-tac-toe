@@ -66,6 +66,18 @@ Board.prototype.threeInRow = function() {
   }
 }
 
+function Game() {
+  this.player1 = new Player("X");
+  this.player2 = new Player("O");
+  this.board = new Board();
+  this.activePlayer = this.player1;
+  this.inactivePlayer = this.player2;
+}
+
+Game.prototype.markSpace = function(spaceNumber) {
+  this.board.spaces[spaceNumber].addMark(this.activePlayer.mark);
+}
+
 
 // UI Logic
 $(document).ready(function() {
@@ -79,7 +91,8 @@ $(document).ready(function() {
   var board1 = new Board();
   console.log(board1);
 
-  console.log(board1.threeInRow());
-  console.log(board1.boardFull());
+  var newGame = new Game();
+  console.log(newGame);
+  newGame.markSpace(8);
 
 });
