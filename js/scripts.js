@@ -34,6 +34,15 @@ function Board() {
   }
 }
 
+ Board.prototype.boardFull = function(){
+   this.spaces.forEach(function(spaceFull){
+     if(spaceFull.getMark() === "") {
+       return false;
+     }
+   });
+   return true;
+ }
+
 Board.prototype.threeInRow = function() {
   if (this.spaces[0].getMark() === this.spaces[1].getMark() && this.spaces[1].getMark() === this.spaces[2].getMark() && this.spaces[0].getMark() !== ""){
     return true;
