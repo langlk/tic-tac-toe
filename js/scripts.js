@@ -154,17 +154,15 @@ Game.prototype.getNewState = function(move) {
   return newGame;
 }
 
+var bestMove;
+
 function minMax(game) {
   var state = game.isOver();
-  console.log(state);
   if (state === "full") {
-    console.log("Tie");
     return 0;
   } else if (state === "X") {
-    console.log("Loss");
     return -10;
   } else if (state === "O") {
-    console.log("Win");
     return 10;
   } else { // Game is not over
     var scores = []
@@ -174,8 +172,6 @@ function minMax(game) {
       scores.push(minMax(possibleGame));
       moves.push(move);
     });
-    console.log("Scores: " + scores);
-    console.log("Moves: " + moves);
     if (game.activePlayer.mark === "O") {
       var maxScoreIndex = scores.indexOf(Math.max.apply(null, scores));
       bestMove = moves[maxScoreIndex];
@@ -185,7 +181,6 @@ function minMax(game) {
       bestMove = moves[minScoreIndex];
       return scores[minScoreIndex];
     }
-    console.log(bestMove);
   }
 }
 
@@ -284,10 +279,7 @@ $(document).ready(function() {
           printEnd(turnEnd);
         } else {
           updateTurn(newGame.player2.mark);
-          console.log(newGame.getAvailableMoves());
           minMax(newGame)
-          console.log(bestMove);
-          console.log(newGame);
           var botMove = bestMove;
           newGame.markSpace(botMove);
           setTimeout(function() {
