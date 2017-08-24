@@ -32,3 +32,7 @@
   * Game should alternate player turn
   * Game should know when it's over
   * Game should identify winner
+
+* AI
+  * AI returns random number between 0-8
+  * If number is unavailable, AI returns another random number

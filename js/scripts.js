@@ -67,9 +67,10 @@ Board.prototype.threeInRow = function() {
   }
 }
 
-function Game() {
-  this.player1 = new Player("X");
-  this.player2 = new Player("O");
+function Game(mode, player1, player2) {
+  this.mode = mode;
+  this.player1 = player1;
+  this.player2 = player2;
   this.board = new Board();
   this.activePlayer = this.player1;
   this.inactivePlayer = this.player2;
@@ -99,6 +100,23 @@ Game.prototype.isOver = function() {
   }
 }
 
+function TicTacBot(mark) {
+  this.mark = mark;
+}
+
+TicTacBot.prototype.chooseSpace = function() {
+  return parseInt(Math.random() * 9);
+}
+
+Game.prototype.botTurn = function() {
+  var botMove = this.player2.chooseSpace();
+  while (this.board.spaces[botMove].getMark() !== "") {
+    botMove = this.player2.chooseSpace();
+  }
+  this.markSpace(botMove);
+  return botMove;
+}
+
 // UI Logic
 function updateSpace(space, mark){
   $("#" + space).text(mark);
@@ -113,6 +131,7 @@ function printEnd(result) {
 }
 
 function updateTurn(player) {
+  console.log(player);
   $("#active-player").text(player);
 }
 
@@ -120,7 +139,9 @@ $(document).ready(function() {
   $("#pvp").click(function(){
     $(".gameStart").hide();
     $(".gameplay").show();
-    var newGame = new Game();
+    var player1 = new Player("X");
+    var player2 = new Player("O");
+    var newGame = new Game("pvp", player1, player2);
     updateTurn(newGame.activePlayer.mark);
 
     $(".space").click(function(){
@@ -138,10 +159,37 @@ $(document).ready(function() {
       }
     });
   });
+
   $("#ai").click(function(){
     $(".gameStart").hide();
     $(".gameplay").show();
-    var newGame = new Game();
-    updateTurn(newGame.activePlayer.mark);
+    var player1 = new Player("X");
+    var bot = new TicTacBot("O");
+    var newGame = new Game("ai", player1, bot);
+    updateTurn(newGame.player1.mark);
+    $(".space").click(function(){
+      var mark = newGame.markSpace(parseInt($(this).attr("id")));
+      if (mark !== "This space is already marked.") {
+        updateSpace(parseInt($(this).attr("id")), newGame.player1.mark);
+        var turnEnd = newGame.endTurn();
+        if (turnEnd) {
+          printEnd(turnEnd);
+        } else {
+          updateTurn(newGame.player2.mark);
+          var botMove = newGame.botTurn();
+          setTimeout(function() {
+            updateSpace(botMove, newGame.player2.mark)
+            turnEnd = newGame.endTurn();
+            if (turnEnd) {
+              printEnd(turnEnd);
+            } else {
+              updateTurn(newGame.player1.mark);
+            }
+          }, 800);
+        }
+      } else {
+        console.log("Already Marked");
+      }
+    });
   });
 });
