@@ -128,6 +128,7 @@ function printEnd(result) {
   } else {
     $("#result").text("It's a tie!");
   }
+  $("#restart").show();
 }
 
 function updateTurn(player) {
@@ -136,6 +137,9 @@ function updateTurn(player) {
 }
 
 $(document).ready(function() {
+  $("#restart").click(function() {
+    window.location.reload();
+  });
   $("#pvp").click(function(){
     $(".gameStart").hide();
     $(".gameplay").show();

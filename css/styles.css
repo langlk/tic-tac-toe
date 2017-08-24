@@ -16,6 +16,36 @@ body {
   background-repeat: no-repeat;
 }
 
+.gameStart {
+  text-align: center;
+  width: 550px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 250px;
+}
+
+.gameStart button, #restart {
+  background-color: transparent;
+  font-size: 20px;
+  border: none;
+  margin: 0px 10px;
+}
+
+.results {
+  text-align: center;
+}
+
+#restart {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  display: none;
+}
+
+.gameStart button:hover, #restart:hover {
+  color: rgba(255, 255, 255, .5);
+}
+
 .btn:hover, .btn:focus {
   color: white;
 }
