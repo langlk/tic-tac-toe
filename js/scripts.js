@@ -46,21 +46,21 @@ function Board() {
 
 Board.prototype.threeInRow = function() {
   if (this.spaces[0].getMark() === this.spaces[1].getMark() && this.spaces[1].getMark() === this.spaces[2].getMark() && this.spaces[0].getMark() !== ""){
-    return true;
+    return this.spaces[0].getMark();
   } else if(this.spaces[3].getMark() === this.spaces[4].getMark() && this.spaces[4].getMark() === this.spaces[5].getMark()&& this.spaces[3].getMark() !== ""){
-    return true;
+    return this.spaces[3].getMark();
   } else if (this.spaces[6].getMark() === this.spaces[7].getMark() && this.spaces[7].getMark() === this.spaces[8].getMark()&& this.spaces[6].getMark() !== "") {
-    return true;
+    return this.spaces[6].getMark();
   } else if (this.spaces[0].getMark() === this.spaces[3].getMark() && this.spaces[6].getMark() === this.spaces[0].getMark()&& this.spaces[0].getMark() !== "") {
-    return true;
+    return this.spaces[0].getMark();
   } else if (this.spaces[1].getMark() === this.spaces[4].getMark() && this.spaces[7].getMark() === this.spaces[4].getMark()&& this.spaces[1].getMark() !== "") {
-    return true;
+    return this.spaces[1].getMark();
   } else if (this.spaces[2].getMark() === this.spaces[5].getMark() && this.spaces[8].getMark() === this.spaces[2].getMark()&& this.spaces[2].getMark() !== "") {
-    return true;
+    return this.spaces[2].getMark();
   } else if (this.spaces[0].getMark() === this.spaces[4].getMark() && this.spaces[8].getMark() === this.spaces[0].getMark()&& this.spaces[0].getMark() !== "") {
-    return true;
+    return this.spaces[0].getMark();
   } else if (this.spaces[2].getMark() === this.spaces[4].getMark() && this.spaces[6].getMark() === this.spaces[2].getMark()&& this.spaces[2].getMark() !== "") {
-    return true;
+    return this.spaces[2].getMark();
   } else {
     return false;
   }
@@ -78,6 +78,7 @@ $(document).ready(function() {
 
   var board1 = new Board();
   console.log(board1);
+
   console.log(board1.threeInRow());
   console.log(board1.boardFull());
 
