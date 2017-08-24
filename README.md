@@ -33,6 +33,17 @@
   * Game should know when it's over
   * Game should identify winner
 
-* AI
+* AI Easy
   * AI returns random number between 0-8
   * If number is unavailable, AI returns another random number
+
+* AI Hard
+  * Implement the minimax algorithm
+  * Scores moves based on outcome
+  * Wins worth 10 points
+  * Losses worth -10 points
+  * Everything else is 0 points
+  * AI chooses next move with the highest score.
+  * AI assumes other player will choose moves with the lowest score.
+  * AI sums the scores of "best" possible followup moves ("best" alternates based on whether AI or Player 1 is choosing.)
+  * AI chooses the move with the best cumulative score.

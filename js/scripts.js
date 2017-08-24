@@ -45,6 +45,8 @@ function Board() {
    return isFull;
  }
 
+
+
 Board.prototype.threeInRow = function() {
   if (this.spaces[0].getMark() === this.spaces[1].getMark() && this.spaces[1].getMark() === this.spaces[2].getMark() && this.spaces[0].getMark() !== ""){
     return this.spaces[0].getMark();
@@ -117,6 +119,76 @@ Game.prototype.botTurn = function() {
   return botMove;
 }
 
+Game.prototype.copyGame = function() {
+  var player1 = new Player("X");
+  var bot = new Player("O");
+  var game2 = new Game("ai", player1, bot);
+  for (var i = 0; i < 9; i++) {
+    var newMark = this.board.spaces[i].getMark();
+    game2.board.spaces[i].addMark(newMark);
+  }
+  if (this.activePlayer.mark === "X") {
+    game2.activePlayer = game2.player1;
+    game2.inactivePlayer = game2.player2;
+  } else {
+    game2.activePlayer = game2.player2;
+    game2.inactivePlayer = game2.player1;
+  }
+  return game2;
+}
+
+Game.prototype.getAvailableMoves = function() {
+  var moves = []
+  for (var i = 0; i < 9; i ++) {
+    if (this.board.spaces[i].getMark() === "") {
+      moves.push(i);
+    }
+  }
+  return moves;
+}
+
+Game.prototype.getNewState = function(move) {
+  var newGame = this.copyGame();
+  newGame.markSpace(move);
+  newGame.endTurn();
+  return newGame;
+}
+
+function minMax(game) {
+  var state = game.isOver();
+  console.log(state);
+  if (state === "full") {
+    console.log("Tie");
+    return 0;
+  } else if (state === "X") {
+    console.log("Loss");
+    return -10;
+  } else if (state === "O") {
+    console.log("Win");
+    return 10;
+  } else { // Game is not over
+    var scores = []
+    var moves = []
+    game.getAvailableMoves().forEach(function(move) {
+      possibleGame = game.getNewState(move);
+      scores.push(minMax(possibleGame));
+      moves.push(move);
+    });
+    console.log("Scores: " + scores);
+    console.log("Moves: " + moves);
+    if (game.activePlayer.mark === "O") {
+      var maxScoreIndex = scores.indexOf(Math.max.apply(null, scores));
+      bestMove = moves[maxScoreIndex];
+      return scores[maxScoreIndex];
+    } else { // oponent's turn, they will pick min score
+      var minScoreIndex = scores.indexOf(Math.min.apply(null, scores));
+      bestMove = moves[minScoreIndex];
+      return scores[minScoreIndex];
+    }
+    console.log(bestMove);
+  }
+}
+
 // UI Logic
 function updateSpace(space, mark){
   $("#" + space).text(mark);
@@ -132,7 +204,6 @@ function printEnd(result) {
 }
 
 function updateTurn(player) {
-  console.log(player);
   $("#active-player").text(player);
 }
 
@@ -181,6 +252,44 @@ $(document).ready(function() {
         } else {
           updateTurn(newGame.player2.mark);
           var botMove = newGame.botTurn();
+          setTimeout(function() {
+            updateSpace(botMove, newGame.player2.mark)
+            turnEnd = newGame.endTurn();
+            if (turnEnd) {
+              printEnd(turnEnd);
+            } else {
+              updateTurn(newGame.player1.mark);
+            }
+          }, 800);
+        }
+      } else {
+        console.log("Already Marked");
+      }
+    });
+  });
+
+  $("#beastAI").click(function() {
+    $(".gameStart").hide();
+    $(".gameplay").show();
+    var player1 = new Player("X");
+    var bot = new TicTacBot("O");
+    var newGame = new Game("beastAI", player1, bot);
+    updateTurn(newGame.player1.mark);
+    $(".space").click(function(){
+      var mark = newGame.markSpace(parseInt($(this).attr("id")));
+      if (mark !== "This space is already marked.") {
+        updateSpace(parseInt($(this).attr("id")), newGame.player1.mark);
+        var turnEnd = newGame.endTurn();
+        if (turnEnd) {
+          printEnd(turnEnd);
+        } else {
+          updateTurn(newGame.player2.mark);
+          console.log(newGame.getAvailableMoves());
+          minMax(newGame)
+          console.log(bestMove);
+          console.log(newGame);
+          var botMove = bestMove;
+          newGame.markSpace(botMove);
           setTimeout(function() {
             updateSpace(botMove, newGame.player2.mark)
             turnEnd = newGame.endTurn();
