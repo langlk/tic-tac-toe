@@ -78,6 +78,25 @@ Game.prototype.markSpace = function(spaceNumber) {
   this.board.spaces[spaceNumber].addMark(this.activePlayer.mark);
 }
 
+Game.prototype.endTurn = function() {
+  if (!this.isOver()) {
+    var lastPlayer = this.activePlayer;
+    this.activePlayer = this.inactivePlayer;
+    this.inactivePlayer = lastPlayer;
+  } else {
+    return this.isOver();
+  }
+}
+
+Game.prototype.isOver = function() {
+  if (this.board.threeInRow()) {
+    return this.board.threeInRow();
+  } else if (this.board.boardFull()) {
+    return "full";
+  } else {
+    return false;
+  }
+}
 
 // UI Logic
 $(document).ready(function() {
@@ -93,6 +112,4 @@ $(document).ready(function() {
 
   var newGame = new Game();
   console.log(newGame);
-  newGame.markSpace(8);
-
 });
