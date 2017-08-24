@@ -117,22 +117,31 @@ function updateTurn(player) {
 }
 
 $(document).ready(function() {
+  $("#pvp").click(function(){
+    $(".gameStart").hide();
+    $(".gameplay").show();
+    var newGame = new Game();
+    updateTurn(newGame.activePlayer.mark);
 
-  var newGame = new Game();
-  updateTurn(newGame.activePlayer.mark);
-
-  $(".space").click(function(){
-    var mark = newGame.markSpace(parseInt($(this).attr("id")));
-    if (mark !== "This space is already marked.") {
-      updateSpace(parseInt($(this).attr("id")), newGame.activePlayer.mark);
-      var turnEnd = newGame.endTurn();
-      if (turnEnd) {
-        printEnd(turnEnd);
+    $(".space").click(function(){
+      var mark = newGame.markSpace(parseInt($(this).attr("id")));
+      if (mark !== "This space is already marked.") {
+        updateSpace(parseInt($(this).attr("id")), newGame.activePlayer.mark);
+        var turnEnd = newGame.endTurn();
+        if (turnEnd) {
+          printEnd(turnEnd);
+        } else {
+          updateTurn(newGame.activePlayer.mark);
+        }
       } else {
-        updateTurn(newGame.activePlayer.mark);
+        console.log("Already Marked");
       }
-    } else {
-      console.log("Already Marked");
-    }
+    });
+  });
+  $("#ai").click(function(){
+    $(".gameStart").hide();
+    $(".gameplay").show();
+    var newGame = new Game();
+    updateTurn(newGame.activePlayer.mark);
   });
 });

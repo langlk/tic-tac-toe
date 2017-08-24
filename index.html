@@ -15,19 +15,25 @@
       </div>
     </div>
     <div class="container contents">
-      <h3><span id=active-player></span>'s Turn</h3>
-      <div class="gameBoard">
-        <div class="topRow">
-          <button id="0" type="button" class="btn space"></button><button id="1" type="button" class="btn space"></button><button id="2" type="button" class="btn space"></button>
-        </div>
-        <div class="midRow">
-          <button id="3" type="button" class="btn space"></button><button id="4" type="button" class="btn space"></button><button id="5" type="button" class="btn space"></button>
-        </div>
-        <div class="botRow">
-          <button id="6" type="button" class="btn space"></button><button id="7" type="button" class="btn space"></button><button id="8" type="button" class="btn space"></button>
-        </div>
+      <div class="gameStart">
+        <button id="pvp" type="button" name="button">Player vs Player</button>
+        <button id="ai" type="button" name="button">Player vs Computer</button>
       </div>
-      <h4 id="result"></h4>
+      <div class="gameplay">
+        <h3><span id=active-player></span>'s Turn</h3>
+        <div class="gameBoard">
+          <div class="topRow">
+            <button id="0" type="button" class="btn space"></button><button id="1" type="button" class="btn space"></button><button id="2" type="button" class="btn space"></button>
+          </div>
+          <div class="midRow">
+            <button id="3" type="button" class="btn space"></button><button id="4" type="button" class="btn space"></button><button id="5" type="button" class="btn space"></button>
+          </div>
+          <div class="botRow">
+            <button id="6" type="button" class="btn space"></button><button id="7" type="button" class="btn space"></button><button id="8" type="button" class="btn space"></button>
+          </div>
+        </div>
+        <h4 id="result"></h4>
+      </div>
     </div>
   </body>
 </html>

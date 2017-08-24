@@ -30,6 +30,16 @@ body {
   font-size: 40px;
 }
 
+.gameBoard {
+  margin-left: auto;
+  margin-right: auto;
+  width: 300px;
+}
+
+.gameplay {
+  display: none;
+}
+
 h1 {
   text-align: center;
 }
@@ -50,10 +60,4 @@ h4 {
   width: 400px;
   margin-left: auto;
   margin-right: auto;
-}
-
-.gameBoard {
-  margin-left: auto;
-  margin-right: auto;
-  width: 300px;
 }
