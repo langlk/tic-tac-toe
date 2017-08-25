@@ -1,5 +1,18 @@
 # Tic Tac Toe
 
+#### _Epicodus Practice in JavaScript, HTML, and CSS, August 25, 2017_
+
+#### By Gennaro Anzalone, Kelsey Langlois, and Linda Luu
+
+## Description
+
+_An online version of Tic Tac Toe, offerring options for playing local Player vs Player as well as playing vs Easy or Hard AI. Hard AI uses Minimax, Easy AI chooses a random square._
+
+## Setup/Installation Requirements
+
+* Clone this repository
+* Open index.html in web browser of your choice
+
 ## Specifications
 
 * Player
@@ -47,3 +60,24 @@
   * AI assumes other player will choose moves with the lowest score.
   * AI sums the scores of "best" possible followup moves ("best" alternates based on whether AI or Player 1 is choosing.)
   * AI chooses the move with the best cumulative score.
+
+## Known Bugs
+
+* When playing vs AI, clicking the next square too quickly can result in player marking a square before an AI's move has appeared in that square. This is due to a programmed delay in displaying the AI's move (in order to give it the appearance of thinking its move over). The game state still knows the correct placement of marks, but the UI will show an incorrect mark till game end. Waiting for the AI's move to appear is recommended.
+
+## Support and contact details
+
+_Please contact [kels.langlois@gmail.com](mailto:kels.langlois@gmail.com) or Gennaro Anzalone with questions, comments, or issues._
+
+## Technologies Used
+
+* HTML
+* CSS
+* Bootstrap
+* JavaScript
+
+### License
+
+Copyright (c) 2017 **Gennaro Anzalone, Kelsey Langlois, and Linda Luu**
+
+*This software is licensed under the MIT license.*
